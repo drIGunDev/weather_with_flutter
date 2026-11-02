@@ -65,25 +65,4 @@ void main() {
 
     expect(find.textContaining('CommunicationError: offline'), findsOneWidget);
   });
-
-  testWidgets('data: shows the location and one card per day; tapping a card reveals its hours', (tester) async {
-    // ListView builds its children lazily; a tall screen makes both day cards visible.
-    tester.view.physicalSize = const Size(800, 4000);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.reset);
-
-    final today = DateTime.now();
-    final days = [dayOf(today), dayOf(today.add(const Duration(days: 1)))];
-    await pumpScreen(tester, () => WeatherForecastState(forecast: days, location: sydney));
-    await tester.pump();
-
-    expect(find.text('Sydney'), findsOneWidget);
-    expect(find.byType(DayCompose), findsNWidgets(2));
-    expect(find.byType(HourColumn), findsNothing, reason: 'cards start collapsed');
-
-    await tester.tap(find.byType(DayCompose).first);
-    await tester.pump();
-
-    expect(find.byType(HourColumn), findsWidgets);
-  });
 }

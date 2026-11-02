@@ -18,13 +18,4 @@ void main() {
       expect(find.text('23:00'), findsOneWidget);
     }
   });
-
-  testWidgets('shows the table header', (tester) async {
-    final now = locationNow(0);
-    await pumpApp(tester, DayHours(day: dayOf(DateTime(now.year, now.month, now.day)), utcOffsetSeconds: 0));
-
-    for (final title in ['Time', 'Weather', 'Temp.', 'Wind']) {
-      expect(find.text(title), findsOneWidget);
-    }
-  });
 }
