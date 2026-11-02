@@ -112,7 +112,18 @@ final class const OpenMeteoWeatherServiceImpl({required this._client, this._onRe
   }
 }
 
-final class _OpenMeteoHourlyDTO {
+final class const _OpenMeteoHourlyDTO({
+  required this.time,
+  required this.temperature,
+  required this.rain,
+  required this.windSpeed,
+  required this.windGusts,
+  required this.windDirection,
+  required this.apparentTemperature,
+  required this.precipitationProbability,
+  required this.precipitation,
+  required this.weatherCode,
+}) {
   final List<DateTime> time;
   final List<double> temperature;
   final List<double> apparentTemperature;
@@ -123,19 +134,6 @@ final class _OpenMeteoHourlyDTO {
   final List<int> precipitationProbability;
   final List<double> precipitation;
   final List<int> weatherCode;
-
-  const _OpenMeteoHourlyDTO({
-    required this.time,
-    required this.temperature,
-    required this.rain,
-    required this.windSpeed,
-    required this.windGusts,
-    required this.windDirection,
-    required this.apparentTemperature,
-    required this.precipitationProbability,
-    required this.precipitation,
-    required this.weatherCode,
-  });
 
   factory _OpenMeteoHourlyDTO.fromJson(Map<String, dynamic> json) {
     return _OpenMeteoHourlyDTO(

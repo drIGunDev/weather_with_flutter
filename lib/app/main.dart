@@ -14,7 +14,7 @@ import 'di.dart';
 abstract interface class NavigationPaths {
   static const String root = '/';
   static const String locationStorage = '/location_storage';
-  static const String selectLocation = '/select_location';
+  static const String locationSelection = '/location_selection';
 }
 
 void main() => runApp(
@@ -27,7 +27,7 @@ void main() => runApp(
         routes: {
           NavigationPaths.root: (context) => WeatherForecast(),
           NavigationPaths.locationStorage: (context) => LocationStorage(),
-          NavigationPaths.selectLocation: (context) => LocationSelection(),
+          NavigationPaths.locationSelection: (context) => LocationSelection(),
         },
       ),
     ),

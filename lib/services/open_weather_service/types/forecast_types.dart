@@ -10,10 +10,21 @@ final class DayForecast({
 
 typedef DaysForecast = List<DayForecast>;
 
-extension Infarior on DayForecast {
-  Event<WeatherItem> get inferior => hoursForecast.reduce((value, element) => value.item.type.type > element.item.type.type ? value : element);
+extension LimitedList on List<Event<WeatherItem>> {
+  List<Event<WeatherItem>> range(int start, int end) => where((e) => e.start.hour > start && e.start.hour < end).toList(growable: false);
+}
 
-  Event<WeatherItem> get superior => hoursForecast.reduce((value, element) => value.item.type.type < element.item.type.type ? value : element);
+extension Infarior on DayForecast {
+  static const int timeStart = 6;
+  static const int timeEnd = 17;
+
+  Event<WeatherItem> get inferior => hoursForecast
+      .range(Infarior.timeStart, Infarior.timeEnd)
+      .reduce((value, element) => value.item.type.type > element.item.type.type ? value : element);
+
+  Event<WeatherItem> get superior => hoursForecast
+      .range(Infarior.timeStart, Infarior.timeEnd)
+      .reduce((value, element) => value.item.type.type < element.item.type.type ? value : element);
 
   Temperature get minTemperature =>
       hoursForecast.reduce((value, element) => value.item.temperature.celsius < element.item.temperature.celsius ? value : element).item.temperature;

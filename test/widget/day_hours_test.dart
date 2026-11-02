@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:weather_with_flutter/presentation/widgets/day_hours.dart';
-import 'package:weather_with_flutter/presentation/widgets/hour_row.dart';
+import 'package:weather_with_flutter/presentation/widgets/hour_column.dart';
 import 'package:weather_with_flutter/tools/location_time.dart';
 
 import 'support/widget_helpers.dart';
@@ -14,7 +14,7 @@ void main() {
 
       await pumpApp(tester, DayHours(day: dayOf(DateTime(now.year, now.month, now.day)), utcOffsetSeconds: offset));
 
-      expect(find.byType(HourRow), findsNWidgets(24 - firstShown.clamp(0, 23)), reason: 'offset $offset s');
+      expect(find.byType(HourColumn), findsNWidgets(24 - firstShown.clamp(0, 23)), reason: 'offset $offset s');
       expect(find.text('23:00'), findsOneWidget);
     }
   });

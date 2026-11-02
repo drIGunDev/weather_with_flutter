@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:weather_with_flutter/l10n/app_localizations.dart';
 import 'package:weather_with_flutter/presentation/screens/weather_forecast.dart';
 import 'package:weather_with_flutter/presentation/widgets/day_compose.dart';
-import 'package:weather_with_flutter/presentation/widgets/hour_row.dart';
+import 'package:weather_with_flutter/presentation/widgets/hour_column.dart';
 import 'package:weather_with_flutter/services/location/state/last_update_counter.dart';
 import 'package:weather_with_flutter/services/open_weather_service/state/forecast_notifier.dart';
 import 'package:weather_with_flutter/services/open_weather_service/weather_service.dart';
@@ -79,11 +79,11 @@ void main() {
 
     expect(find.text('Sydney'), findsOneWidget);
     expect(find.byType(DayCompose), findsNWidgets(2));
-    expect(find.byType(HourRow), findsNothing, reason: 'cards start collapsed');
+    expect(find.byType(HourColumn), findsNothing, reason: 'cards start collapsed');
 
     await tester.tap(find.byType(DayCompose).first);
     await tester.pump();
 
-    expect(find.byType(HourRow), findsWidgets);
+    expect(find.byType(HourColumn), findsWidgets);
   });
 }

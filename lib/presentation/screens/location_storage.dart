@@ -65,7 +65,7 @@ class const LocationStorage({super.key}) extends ConsumerWidget {
             const SizedBox(height: 16),
 
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, NavigationPaths.selectLocation),
+              onPressed: () => Navigator.pushNamed(context, NavigationPaths.locationSelection),
               child: const Text('Add location'),
             ),
 
