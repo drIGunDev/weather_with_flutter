@@ -4,6 +4,7 @@ import 'package:weather_with_flutter/services/open_weather_service/types/forecas
 import '../../app/themes.dart';
 import 'day_hours.dart';
 import 'day_summary.dart';
+import 'hour_column.dart';
 
 final class const DayCompose({
   super.key,
@@ -16,7 +17,7 @@ final class const DayCompose({
 
 class _DayComposeState extends State<DayCompose> {
   var _isExpanded = false;
-  var _temperatureLayout = WeatherLayout.temperature;
+  var _layout = WeatherLayout.temperature;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +38,8 @@ class _DayComposeState extends State<DayCompose> {
                   child: DaySummary(
                     day: widget.day,
                     isExpanded: _isExpanded,
-                    weatherLayout: _temperatureLayout,
-                    onLayoutTemperature: (isTemperatureLayout) => setState(() => _temperatureLayout = isTemperatureLayout),
+                    weatherLayout: _layout,
+                    onLayoutChanged: (layout) => setState(() => _layout = layout),
                   ),
                 ),
               ),
@@ -46,7 +47,7 @@ class _DayComposeState extends State<DayCompose> {
                 DayHours(
                   day: widget.day,
                   utcOffsetSeconds: widget.utcOffsetSeconds,
-                  temperatureLayout: _temperatureLayout,
+                  layout: _layout,
                 ),
             ],
           ),

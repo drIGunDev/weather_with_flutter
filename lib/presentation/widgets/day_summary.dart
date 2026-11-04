@@ -7,16 +7,15 @@ import '../../services/open_weather_service/types/forecast_types.dart';
 import '../../services/open_weather_service/types/weather_item.dart';
 import '../formatters/date_time_format.dart';
 import '../formatters/weathers_labels.dart';
+import 'hour_column.dart';
 import 'weather_emoji.dart';
-
-enum WeatherLayout { temperature, precipitation }
 
 class const DaySummary({
   super.key,
   required final DayForecast day,
   final bool isExpanded = false,
   final WeatherLayout weatherLayout = .temperature,
-  final Function(WeatherLayout)? onLayoutTemperature,
+  final Function(WeatherLayout)? onLayoutChanged,
 }) extends StatefulWidget {
   @override
   State<DaySummary> createState() => _DaySummaryState();
@@ -60,7 +59,7 @@ class _DaySummaryState extends State<DaySummary> {
                   groupValue: _layout,
                   onChanged: (value) => setState(() {
                     _layout = value!;
-                    widget.onLayoutTemperature?.call(value);
+                    widget.onLayoutChanged?.call(value);
                   }),
                   child: Row(
                     children: [

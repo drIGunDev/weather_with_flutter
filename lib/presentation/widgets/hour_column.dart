@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:weather_with_flutter/app/themes.dart';
-import 'package:weather_with_flutter/presentation/widgets/precipitation_level.dart';
+import 'package:weather_with_flutter/presentation/widgets/precipitation_indicator.dart';
 
 import '../../services/open_weather_service/types/event.dart';
 import '../../services/open_weather_service/types/weather_item.dart';
 import '../formatters/date_time_format.dart';
-import 'day_summary.dart';
 import 'weather_emoji.dart';
+
+enum WeatherLayout { temperature, precipitation }
 
 class const HourColumn({
   super.key,
   required final Event<WeatherItem> event,
-  final WeatherLayout temperatureLayout = .temperature,
+  final WeatherLayout layout = .temperature,
 }) extends StatelessWidget {
   static const _precipitationIndicatorSegments = 5;
 
@@ -26,7 +27,7 @@ class const HourColumn({
         mainAxisAlignment: .spaceAround,
         children: [
           Text(DateTimeFormat.time(event.start), style: textStyle),
-          ...switch (temperatureLayout) {
+          ...switch (layout) {
             WeatherLayout.temperature => [
               WeatherEmoji(type: event.item.type, date: event.start, size: 30),
               Text('${item.temperature.temperature}°', style: textStyle.copyWith(fontSize: 14)),
@@ -36,7 +37,7 @@ class const HourColumn({
               SizedBox(
                 width: 28,
                 height: 40,
-                child: PrecipitationLevel(
+                child: PrecipitationIndicator(
                   level: precipitationLive,
                   segments: _precipitationIndicatorSegments,
                   segmentColor: Colors.cyan,

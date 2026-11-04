@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class const PrecipitationLevel({
+class const PrecipitationIndicator({
   super.key,
   required final int _level,
   final Color? _segmentColor = Colors.blue,
@@ -54,7 +54,7 @@ class _TestState extends State<_Test> {
           SizedBox(
             width: 30,
             height: 40,
-            child: PrecipitationLevel(
+            child: PrecipitationIndicator(
               level: _level,
               segments: 5,
             ),
