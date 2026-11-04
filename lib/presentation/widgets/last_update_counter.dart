@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/themes.dart';
-import '../formatters/last_update_format.dart';
 import '../../services/location/state/last_update_counter.dart';
 import '../../services/location/types/location.dart';
+import '../formatters/last_update_format.dart';
 
 final class const LastUpdateCounter({
   super.key,

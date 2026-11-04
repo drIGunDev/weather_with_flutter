@@ -9,10 +9,28 @@ import '../formatters/date_time_format.dart';
 import '../formatters/weathers_labels.dart';
 import 'weather_emoji.dart';
 
+enum WeatherLayout { temperature, precipitation }
+
 class const DaySummary({
   super.key,
   required final DayForecast day,
-}) extends StatelessWidget {
+  final bool isExpanded = false,
+  final WeatherLayout weatherLayout = .temperature,
+  final Function(WeatherLayout)? onLayoutTemperature,
+}) extends StatefulWidget {
+  @override
+  State<DaySummary> createState() => _DaySummaryState();
+}
+
+class _DaySummaryState extends State<DaySummary> {
+  WeatherLayout _layout = .temperature;
+
+  @override
+  void initState() {
+    super.initState();
+    _layout = widget.weatherLayout;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,31 +41,53 @@ class const DaySummary({
           Row(
             children: [
               Text(
-                DateTimeFormat.dayShort(context.l10n, day.hoursForecast.first.start),
+                DateTimeFormat.dayShort(context.l10n, widget.day.hoursForecast.first.start),
                 style: AppTextStyles.textLarge.copyWith(fontWeight: .bold, color: AppColors.bgScaffold),
               ),
               const SizedBox(width: 10),
               _statTemp(),
             ],
           ),
-
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              // Spacer(),
+              if (widget.isExpanded)
+                RadioGroup<WeatherLayout>(
+                  groupValue: _layout,
+                  onChanged: (value) => setState(() {
+                    _layout = value!;
+                    widget.onLayoutTemperature?.call(value);
+                  }),
+                  child: Row(
+                    children: [
+                      Text('🌡'),
+                      Radio<WeatherLayout>(value: .temperature),
+                      Text('🌧️'),
+                      Radio<WeatherLayout>(value: .precipitation),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 5),
           Padding(
             padding: .only(top: 10, bottom: 10),
             child: Row(
               mainAxisAlignment: .spaceEvenly,
               children: [
-                if (day.superior.start.millisecondsSinceEpoch < day.inferior.start.millisecondsSinceEpoch) ...[
-                  _supremeWeather('superior', day.superior),
+                if (widget.day.superior.start.millisecondsSinceEpoch < widget.day.inferior.start.millisecondsSinceEpoch) ...[
+                  _supremeWeather('superior', widget.day.superior),
 
                   const SizedBox(height: 20),
 
-                  _supremeWeather('inferior', day.inferior),
+                  _supremeWeather('inferior', widget.day.inferior),
                 ] else ...[
-                  _supremeWeather('inferior', day.inferior),
+                  _supremeWeather('inferior', widget.day.inferior),
 
                   const SizedBox(height: 20),
 
-                  _supremeWeather('superior', day.superior),
+                  _supremeWeather('superior', widget.day.superior),
                 ],
               ],
             ),
@@ -99,8 +139,8 @@ class const DaySummary({
   }
 
   Widget _statTemp() {
-    final minTemperature = day.minTemperature;
-    final maxTemperature = day.maxTemperature;
+    final minTemperature = widget.day.minTemperature;
+    final maxTemperature = widget.day.maxTemperature;
     final textStyle = AppTextStyles.textLarge.copyWith(fontWeight: .bold);
     return Text(
       '🌡️ ${minTemperature.temperature} - ${maxTemperature.temperature}°C',

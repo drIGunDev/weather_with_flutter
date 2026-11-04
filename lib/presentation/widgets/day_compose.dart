@@ -16,6 +16,7 @@ final class const DayCompose({
 
 class _DayComposeState extends State<DayCompose> {
   var _isExpanded = false;
+  var _temperatureLayout = WeatherLayout.temperature;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,20 @@ class _DayComposeState extends State<DayCompose> {
                   splashColor: Colors.blue,
                   borderRadius: BorderRadius.circular(15),
                   onTap: () => setState(() => _isExpanded = !_isExpanded),
-                  child: DaySummary(day: widget.day),
+                  child: DaySummary(
+                    day: widget.day,
+                    isExpanded: _isExpanded,
+                    weatherLayout: _temperatureLayout,
+                    onLayoutTemperature: (isTemperatureLayout) => setState(() => _temperatureLayout = isTemperatureLayout),
+                  ),
                 ),
               ),
-              if (_isExpanded) DayHours(day: widget.day, utcOffsetSeconds: widget.utcOffsetSeconds),
+              if (_isExpanded)
+                DayHours(
+                  day: widget.day,
+                  utcOffsetSeconds: widget.utcOffsetSeconds,
+                  temperatureLayout: _temperatureLayout,
+                ),
             ],
           ),
         ),

@@ -18,6 +18,7 @@ final class Location({
   required final String timezone,
   final bool isActive = false,
   final DateTime? weatherUpdatedAt,
+
   /// Offset of the location's local time from UTC, as reported by the forecast API.
   /// Not part of equality: it is derived metadata, unknown until the first forecast fetch.
   final int? utcOffsetSeconds,
