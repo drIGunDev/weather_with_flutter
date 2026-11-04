@@ -44,14 +44,17 @@ class _DaySummaryState extends State<DaySummary> {
                 DateTimeFormat.dayShort(context.l10n, widget.day.hoursForecast.first.start),
                 style: AppTextStyles.textLarge.copyWith(fontWeight: .bold, color: AppColors.bgScaffold),
               ),
+
               const SizedBox(width: 10),
+
               _statTemp(),
             ],
           ),
+
           const SizedBox(height: 5),
+
           Row(
             children: [
-              // Spacer(),
               if (widget.isExpanded)
                 RadioGroup<WeatherLayout>(
                   groupValue: _layout,
@@ -62,15 +65,23 @@ class _DaySummaryState extends State<DaySummary> {
                   child: Row(
                     children: [
                       Text('🌡'),
-                      Radio<WeatherLayout>(value: .temperature),
+                      Radio<WeatherLayout>(
+                        value: .temperature,
+                        activeColor: Colors.white,
+                      ),
                       Text('🌧️'),
-                      Radio<WeatherLayout>(value: .precipitation),
+                      Radio<WeatherLayout>(
+                        value: .precipitation,
+                        activeColor: Colors.white,
+                      ),
                     ],
                   ),
                 ),
             ],
           ),
+
           const SizedBox(height: 5),
+
           Padding(
             padding: .only(top: 10, bottom: 10),
             child: Row(
@@ -121,7 +132,9 @@ class _DaySummaryState extends State<DaySummary> {
                 const SizedBox(width: 5),
 
                 Text('${item.temperature.temperature}°', style: textStyle.copyWith(fontSize: 18)),
+
                 const SizedBox(width: 5),
+
                 Column(
                   mainAxisAlignment: .start,
                   children: [
