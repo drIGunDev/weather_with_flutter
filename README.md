@@ -23,7 +23,7 @@ Weather data is provided by [Open-Meteo](https://open-meteo.com/) (no API key re
 This repository is a showcase project. The same engineering approach is used in the production application **Metevio**:
 
 - App Store: https://apps.apple.com/de/app/metevio-outdoor-weather/id6812420340?l=en-GB
-- Google Play: `coming soon`
+- Google Play: https://play.google.com/store/apps/details?id=eu.igun.gosignal
 
 ## Features
 
