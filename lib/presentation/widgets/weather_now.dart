@@ -33,21 +33,12 @@ class const WeatherNow({
               style: AppTextStyles.textExtraLarge.copyWith(fontWeight: .bold),
               textAlign: .center,
             ),
-
-          const SizedBox(height: 10),
-
-          if (currentWeather != null) WeatherEmoji(type: currentWeather.item.type, date: currentWeather.start, size: 100),
-
-          const SizedBox(height: 10),
-
+          if (currentWeather != null) WeatherEmoji(type: currentWeather.item.type, date: currentWeather.start, size: 80),
           if (currentWeather != null)
             Text(
               weatherType ?? currentWeather.item.type.name,
               style: AppTextStyles.textLarge.copyWith(fontSize: 30, fontWeight: .bold),
             ),
-
-          const SizedBox(height: 10),
-
           if (currentWeather != null)
             Row(
               mainAxisAlignment: .center,
@@ -56,9 +47,7 @@ class const WeatherNow({
                   '$temperature°',
                   style: AppTextStyles.textExtraLarge.copyWith(fontSize: 40, fontWeight: .bold),
                 ),
-
                 const SizedBox(width: 10),
-
                 Column(
                   crossAxisAlignment: .start,
                   children: [

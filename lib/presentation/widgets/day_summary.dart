@@ -43,11 +43,27 @@ class _DaySummaryState extends State<DaySummary> {
                 DateTimeFormat.dayShort(context.l10n, widget.day.hoursForecast.first.start),
                 style: AppTextStyles.textLarge.copyWith(fontWeight: .bold, color: AppColors.bgScaffold),
               ),
-
               const SizedBox(width: 10),
-
               _statTemp(),
             ],
+          ),
+
+          const SizedBox(height: 5),
+
+          Padding(
+            padding: .only(top: 10, bottom: 10),
+            child: Row(
+              mainAxisAlignment: .spaceAround,
+              children: [
+                if (widget.day.superior.start.millisecondsSinceEpoch < widget.day.inferior.start.millisecondsSinceEpoch) ...[
+                  _supremeWeather('superior', widget.day.superior),
+                  _supremeWeather('inferior', widget.day.inferior),
+                ] else ...[
+                  _supremeWeather('inferior', widget.day.inferior),
+                  _supremeWeather('superior', widget.day.superior),
+                ],
+              ],
+            ),
           ),
 
           const SizedBox(height: 5),
@@ -78,30 +94,6 @@ class _DaySummaryState extends State<DaySummary> {
                 ),
             ],
           ),
-
-          const SizedBox(height: 5),
-
-          Padding(
-            padding: .only(top: 10, bottom: 10),
-            child: Row(
-              mainAxisAlignment: .spaceEvenly,
-              children: [
-                if (widget.day.superior.start.millisecondsSinceEpoch < widget.day.inferior.start.millisecondsSinceEpoch) ...[
-                  _supremeWeather('superior', widget.day.superior),
-
-                  const SizedBox(height: 20),
-
-                  _supremeWeather('inferior', widget.day.inferior),
-                ] else ...[
-                  _supremeWeather('inferior', widget.day.inferior),
-
-                  const SizedBox(height: 20),
-
-                  _supremeWeather('superior', widget.day.superior),
-                ],
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -109,41 +101,27 @@ class _DaySummaryState extends State<DaySummary> {
 
   Widget _supremeWeather(String title, Event<WeatherItem> event) {
     final item = event.item;
-    final textStyle = AppTextStyles.textMedium.copyWith(fontWeight: .bold);
+    final textStyle = AppTextStyles.textSmall.copyWith(fontWeight: .bold);
     return Builder(
       builder: (context) {
         final supremeWeatherType = WeatherLabels.name(context.l10n, item.type);
         return Column(
-          mainAxisAlignment: .center,
-          crossAxisAlignment: .center,
           children: [
             Row(
               children: [
                 Text(title, style: textStyle),
                 const SizedBox(width: 5),
-
                 Text(DateTimeFormat.time(event.start), style: textStyle),
               ],
             ),
-
             Row(
+              mainAxisAlignment: .start,
               children: [
-                const SizedBox(width: 5),
-
                 Text('${item.temperature.temperature}°', style: textStyle.copyWith(fontSize: 18)),
-
-                const SizedBox(width: 5),
-
-                Column(
-                  mainAxisAlignment: .start,
-                  children: [
-                    WeatherEmoji(type: item.type, date: event.start, size: 30),
-                    if (item.precipitation.probabilityPercent > 0) Text('${item.precipitation.probabilityPercent} %', style: textStyle),
-                    Text(supremeWeatherType, style: textStyle),
-                  ],
-                ),
+                WeatherEmoji(type: item.type, date: event.start, size: 30),
               ],
             ),
+            Text(supremeWeatherType, style: textStyle),
           ],
         );
       },
