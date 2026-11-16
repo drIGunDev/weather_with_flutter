@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../services/open_weather_service/types/weather_type.dart';
 import '../formatters/weathers_labels.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:weather_with_flutter/services/open_weather_service/types/forecast_types.dart';
 
 import '../../app/themes.dart';
@@ -72,12 +72,9 @@ class const WeatherNow({
     if (day.hoursForecast.isEmpty) return null;
     final currentHour = locationNow(_location?.utcOffsetSeconds).hour;
     var item = day.hoursForecast.first;
-    for (var i = 1; i < day.hoursForecast.length; i++) {
-      final hour = day.hoursForecast[i];
-      if (hour.start.hour > currentHour) {
-        item = day.hoursForecast[i - 1];
-        break;
-      }
+    for (final hour in day.hoursForecast) {
+      if (hour.start.hour > currentHour) break;
+      item = hour;
     }
     return item;
   }
